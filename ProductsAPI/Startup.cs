@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ProductsAPI.Data;
+using ProductsAPI.Repositories;
 
 namespace ProductsAPI
 {
@@ -29,6 +30,8 @@ namespace ProductsAPI
         {
             services.AddDbContext<ProductContext>(
                 options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddTransient<ProductRepo>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
