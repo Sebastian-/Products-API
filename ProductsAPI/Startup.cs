@@ -33,6 +33,18 @@ namespace ProductsAPI
 
             services.AddTransient<ProductRepo>();
 
+            services.AddCors(options => {
+                options.AddPolicy("AllowAll",
+                    builder => {
+                        builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+                    });
+            });
+
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -50,6 +62,7 @@ namespace ProductsAPI
             }
 
             app.UseHttpsRedirection();
+            app.UseCors("AllowAll");
             app.UseMvc();
         }
     }
